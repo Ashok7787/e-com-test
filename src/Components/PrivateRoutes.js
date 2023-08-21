@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import SignIn from "../Container/Auth/SignIn";
 
 const PrivateRoutes = (props) => {
-  const [isConnected,setConnected] = useState(false);
+  const [isConnected,setConnected] = useState(true);
   return isConnected  ? (
     <Outlet />
   ) : (

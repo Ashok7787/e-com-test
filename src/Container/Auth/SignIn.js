@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { login } from "./UserAction";
+import { login } from "./AuthAction";
 import "./SignIn.css";
 const validationSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Email is required"),
@@ -36,17 +36,19 @@ const SignIn = (props) => {
         props.login({
           ...values,
         });
+        resetForm();
       }}
     >
       {({
         values,
         errors,
-        touched,
+        touched,resetForm,
+        isSubmitting,
         handleChange,
         handleBlur,
         handleSubmit,
       }) => (
-        <div className="w-full h-fit p-16 bg-teal-500">
+        <div className="w-full h-full p-16 bg-teal-500">
           <div className="login">
             <div className="form">
               <Form>
@@ -102,9 +104,9 @@ const SignIn = (props) => {
   );
 };
 
-const mapStateToProps = ({ user }) => ({
-  logging: user.logging,
-  loginError: user.loginError,
+const mapStateToProps = ({ auth }) => ({
+  logging: auth.logging,
+  loginError: auth.loginError,
 });
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
